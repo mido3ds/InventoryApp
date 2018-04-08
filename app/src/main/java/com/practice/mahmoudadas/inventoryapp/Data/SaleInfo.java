@@ -29,10 +29,11 @@ public class SaleInfo {
         setTotalPrice(totalPrice);
     }
 
-    public SaleInfo(Cursor cursor) {
+    public static SaleInfo fromCursor(Cursor cursor) {
         StoredItem.checkIsValidCursor(cursor);
 
         // TODO: extract cursor
+        return null;
     }
 
     public static boolean isValidDate(long date) {

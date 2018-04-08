@@ -29,10 +29,11 @@ public class StoredItem {
         setImgResourceId(imgResourceId);
     }
 
-    public StoredItem(Cursor cursor) {
+    public static StoredItem fromCursor(Cursor cursor) {
         checkIsValidCursor(cursor);
 
         // TODO: get cursor content
+        return null;
     }
 
     public static void checkIsValidCursor(Cursor cursor) {
@@ -51,7 +52,7 @@ public class StoredItem {
         return id > 0;
     }
 
-    public static boolean isValildName(String name) {
+    public static boolean isValidName(String name) {
         return name != null && !name.isEmpty();
     }
 
@@ -78,7 +79,7 @@ public class StoredItem {
     }
 
     public void setName(String name) {
-        if (!isValildName(name)) {
+        if (!isValidName(name)) {
             throw new IllegalArgumentException("name cant be empty");
         }
         this.name = name;
@@ -89,7 +90,7 @@ public class StoredItem {
     }
 
     public void setSupplierName(String supplierName) {
-        if (!isValildName(supplierName)) {
+        if (!isValidName(supplierName)) {
             throw new IllegalArgumentException("supplier name cant be empty");
         }
         this.supplierName = supplierName;
