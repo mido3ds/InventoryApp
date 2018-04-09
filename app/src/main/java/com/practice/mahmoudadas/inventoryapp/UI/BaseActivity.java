@@ -16,16 +16,4 @@ abstract class BaseActivity extends AppCompatActivity {
             loaderManager.initLoader(loaderId, null, callbacks);
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, android.R.anim.slide_out_right);
-    }
 }
