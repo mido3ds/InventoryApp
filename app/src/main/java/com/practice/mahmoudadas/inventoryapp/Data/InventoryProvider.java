@@ -87,7 +87,7 @@ public final class InventoryProvider extends ContentProvider {
             case SALES:
                 return SalesTable.CONTENT_LIST_TYPE;
             case SALES_ID:
-                return SalesTable.COLUMN_ITEM_ID;
+                return SalesTable.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalArgumentException("invalid uri " + uri);
         }
