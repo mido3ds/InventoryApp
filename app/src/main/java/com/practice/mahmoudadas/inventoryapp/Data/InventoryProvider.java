@@ -122,7 +122,8 @@ public final class InventoryProvider extends ContentProvider {
 
         getContext().getContentResolver().notifyChange(uri, null);
 
-        return Uri.withAppendedPath(uri, String.valueOf(i));
+
+        return Uri.parse(uri.toString() + "/" + i);
     }
 
     @Override

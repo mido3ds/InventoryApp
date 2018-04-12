@@ -181,7 +181,6 @@ public class Sale {
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
 
-        values.put(SalesTable._ID, id);
         values.put(SalesTable.COLUMN_DATE, date);
         values.put(SalesTable.COLUMN_SALE_TYPE, type);
         values.put(SalesTable.COLUMN_ITEM_ID, itemId);
@@ -196,8 +195,6 @@ public class Sale {
             throw new IllegalArgumentException("contentResolver is null");
         }
 
-        if (contentResolver.insert(SalesTable.CONTENT_URI, this.toContentValues()) == null) {
-            throw new Exception("couldn't save sale info to db " + this);
-        }
+        contentResolver.insert(SalesTable.CONTENT_URI, this.toContentValues());
     }
 }
