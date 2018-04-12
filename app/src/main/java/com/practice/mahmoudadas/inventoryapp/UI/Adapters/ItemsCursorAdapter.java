@@ -29,9 +29,9 @@ public class ItemsCursorAdapter extends CursorAdapter {
 
         ((ImageView) view.findViewById(R.id.img)).setImageResource(item.getImgResourceId());
         ((TextView) view.findViewById(R.id.name)).setText(item.getName());
-        ((TextView) view.findViewById(R.id.supplier)).append(item.getSupplierName());
+        ((TextView) view.findViewById(R.id.supplier)).setText("from: " + item.getSupplierName());
         ((TextView) view.findViewById(R.id.price)).setText(item.getPrice() + " EGP");
-        ((TextView) view.findViewById(R.id.quantity)).append(String.valueOf(item.getQuantity()));
+        ((TextView) view.findViewById(R.id.quantity)).setText("quantity: " + item.getQuantity());
 
         // TODO: listen for sellButton
     }

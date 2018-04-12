@@ -13,4 +13,9 @@
         android:id="@+id/reset_database"
         android:title="Reset All"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_dummy_item"
+        android:title="Add dummy item"
+        app:showAsAction="never" />
 </menu>

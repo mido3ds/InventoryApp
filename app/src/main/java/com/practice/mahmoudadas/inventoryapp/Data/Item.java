@@ -7,7 +7,7 @@ import android.database.Cursor;
 import com.practice.mahmoudadas.inventoryapp.Data.InventoryContract.ItemsTable;
 
 public class Item {
-    private int id = 0;
+    private int id = 1;
     private String name = "";
     private String supplierName = "";
     private int quantity = 0;
@@ -186,7 +186,6 @@ public class Item {
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
 
-        values.put(ItemsTable._ID, id);
         values.put(ItemsTable.COLUMN_NAME, name);
         values.put(ItemsTable.COLUMN_SUPPLIER_NAME, supplierName);
         values.put(ItemsTable.COLUMN_QUANTITY, quantity);

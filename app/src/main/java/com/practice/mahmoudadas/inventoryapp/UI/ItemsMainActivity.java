@@ -1,23 +1,74 @@
 package com.practice.mahmoudadas.inventoryapp.UI;
 
 import android.app.AlertDialog;
+import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
 
 import com.practice.mahmoudadas.inventoryapp.Data.InventoryContract.ItemsTable;
 import com.practice.mahmoudadas.inventoryapp.Data.InventoryContract.SalesTable;
+import com.practice.mahmoudadas.inventoryapp.Data.Item;
 import com.practice.mahmoudadas.inventoryapp.R;
 import com.practice.mahmoudadas.inventoryapp.UI.Adapters.ItemsCursorAdapter;
 
-public class ItemsMainActivity extends ListBaseActivity {
-    public ItemsMainActivity() {
-        adapter = new ItemsCursorAdapter(this, null);
+public class ItemsMainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int LOADER_ID = 0;
+    private static final Item dummyItem = new Item("some item", "supplier name", 4, 55, R.mipmap.ic_launcher_box);
+    private final LoaderManager loaderManager = getLoaderManager();
+    private CursorAdapter adapter = new ItemsCursorAdapter(this, null);
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base);
+
+        setupListView();
+    }
+
+    protected void setupListView() {
+        ListView list = findViewById(R.id.list);
+        list.setAdapter(adapter);
+        list.setEmptyView(findViewById(R.id.emptyView));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        runLoader();
+    }
+
+    private void runLoader() {
+        Loader loader = loaderManager.getLoader(LOADER_ID);
+        if (loader != null && loader.isReset()) {
+            loaderManager.restartLoader(LOADER_ID, null, this);
+        } else {
+            loaderManager.initLoader(LOADER_ID, null, this);
+        }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+        return new CursorLoader(this, ItemsTable.CONTENT_URI,
+                null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        adapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
     }
 
     @Override
@@ -38,6 +89,11 @@ public class ItemsMainActivity extends ListBaseActivity {
             case R.id.reset_database:
                 resetDb();
                 return true;
+
+            case R.id.add_dummy_item:
+                getContentResolver().insert(ItemsTable.CONTENT_URI, dummyItem.toContentValues());
+                runLoader();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -60,11 +116,5 @@ public class ItemsMainActivity extends ListBaseActivity {
                 })
                 .create()
                 .show();
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-        return new CursorLoader(this, ItemsTable.CONTENT_URI,
-                null, null, null, null);
     }
 }

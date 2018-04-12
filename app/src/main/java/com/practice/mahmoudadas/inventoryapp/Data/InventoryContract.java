@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class InventoryContract {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "inventory.db";
 
     public static final String CONTENT_AUTHORITY = "com.practice.mahmoudadas.inventoryapp";
@@ -35,7 +35,7 @@ public final class InventoryContract {
         static final String SQL_CREATE_TABLE =
                 "CREATE TABLE " + TABLE_NAME +
                         "(" +
-                        _ID + " INT PRIMARY KEY AUTOINCREMENT," +
+                        _ID + " INTEGER PRIMARY KEY," +
                         COLUMN_NAME + " TEXT NOT NULL," +
                         COLUMN_SUPPLIER_NAME + " TEXT NOT NULL," +
                         COLUMN_QUANTITY + " INT NOT NULL," +
@@ -69,8 +69,8 @@ public final class InventoryContract {
         static final String SQL_CREATE_TABLE =
                 "CREATE TABLE " + TABLE_NAME +
                         "(" +
-                        _ID + " INT PRIMARY KEY AUTOINCREMENT," +
-                        COLUMN_DATE + " INTEGER NOT NULL," +
+                        _ID + " INTEGER PRIMARY KEY," +
+                        COLUMN_DATE + " INT NOT NULL," +
                         COLUMN_SALE_TYPE + " INT NOT NULL," +
                         COLUMN_ITEM_ID + " INT NOT NULL," +
                         COLUMN_QUANTITY + " INT NOT NULL," +

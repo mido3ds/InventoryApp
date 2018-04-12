@@ -45,8 +45,8 @@
                 android:id="@+id/supplier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="from: "
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:text="from: " />
 
             <TextView
                 android:id="@+id/price"
@@ -59,8 +59,8 @@
                 android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="quantity: "
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:text="quantity: " />
 
         </LinearLayout>
 
