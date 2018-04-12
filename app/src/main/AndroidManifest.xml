@@ -21,8 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.SalesActivity" />
-        <activity android:name=".UI.AddItemActivity" />
+        <activity
+            android:name=".UI.SalesActivity"
+            android:parentActivityName=".UI.ItemsMainActivity" />
+        <activity
+            android:name=".UI.AddItemActivity"
+            android:parentActivityName=".UI.ItemsMainActivity" />
     </application>
 
 </manifest>

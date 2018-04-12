@@ -1,6 +1,7 @@
 package com.practice.mahmoudadas.inventoryapp.Data;
 
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -181,5 +182,15 @@ public class Sale {
         values.put(SalesTable.COLUMN_TOTAL_PRICE, totalPrice);
 
         return values;
+    }
+
+    public void saveSale(ContentResolver contentResolver) throws Exception {
+        if (contentResolver == null) {
+            throw new IllegalArgumentException("contentResolver is null");
+        }
+
+        if (contentResolver.insert(SalesTable.CONTENT_URI, this.toContentValues()) == null) {
+            throw new Exception("couldn't save sale info to db " + this);
+        }
     }
 }

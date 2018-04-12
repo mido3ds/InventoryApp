@@ -1,10 +1,16 @@
 package com.practice.mahmoudadas.inventoryapp.Data;
 
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 
 import com.practice.mahmoudadas.inventoryapp.Data.InventoryContract.ItemsTable;
+import com.practice.mahmoudadas.inventoryapp.Data.InventoryContract.SalesTable;
+
+import java.util.Date;
 
 public class Item {
     private int id = 1;
@@ -193,5 +199,73 @@ public class Item {
         values.put(ItemsTable.COLUMN_IMG_ID, imgResourceId);
 
         return values;
+    }
+
+    public void sell(int quantity, ContentResolver contentResolver) throws Exception {
+        if (quantity > this.quantity) {
+            throw new IllegalArgumentException("quantity is larger than available");
+        } else if (contentResolver == null) {
+            throw new IllegalArgumentException("contentResolver is null");
+        }
+
+        Uri uri = ContentUris.withAppendedId(ItemsTable.CONTENT_URI, id);
+        int rows;
+        long time = new Date().getTime();
+
+        if (quantity == this.quantity) {
+            this.quantity = 0;
+            rows = contentResolver.delete(uri, null, null);
+        } else {
+            this.quantity -= quantity;
+            rows = contentResolver.update(uri, toContentValues(), null, null);
+        }
+
+        if (rows != 1) {
+            this.quantity += quantity;
+            throw new Exception("item not stored in db");
+        }
+
+        new Sale(time, SalesTable.SALE_TYPE_SELL,
+                id, quantity, price * quantity)
+                .saveSale(contentResolver);
+    }
+
+    public void buy(ContentResolver contentResolver) throws Exception {
+        if (contentResolver == null) {
+            throw new IllegalArgumentException("contentResolver is null");
+        }
+
+        Cursor cursor = contentResolver.query(
+                ItemsTable.CONTENT_URI,
+                null,
+                ItemsTable.COLUMN_NAME + "=?",
+                new String[]{name},
+                null);
+        cursor.moveToFirst();
+
+        long time = new Date().getTime();
+        if (cursor.getCount() == 0) {
+            // insert it
+            contentResolver.insert(ItemsTable.CONTENT_URI, toContentValues());
+            new Sale(time, SalesTable.SALE_TYPE_BUY, id, quantity, quantity * price)
+                    .saveSale(contentResolver);
+        } else {
+            // update it
+            Item storedItem = Item.fromCursor(cursor);
+            int boughtQuantity = this.quantity - storedItem.quantity;
+
+            if (boughtQuantity == 0) {
+                throw new Exception("buying nothing");
+            } else if (boughtQuantity < 0) {
+                throw new Exception("newItem's quantity is less than storedItem quantity");
+            } else {
+                contentResolver.update(ItemsTable.CONTENT_URI,
+                        toContentValues(), ItemsTable.COLUMN_NAME + "=?", new String[]{name});
+                new Sale(time, SalesTable.SALE_TYPE_BUY, storedItem.id, boughtQuantity, boughtQuantity * price)
+                        .saveSale(contentResolver);
+            }
+        }
+
+        cursor.close();
     }
 }
