@@ -1,4 +1,4 @@
-package com.practice.mahmoudadas.inventoryapp.UI;
+package com.practice.mahmoudadas.inventoryapp.UI.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;

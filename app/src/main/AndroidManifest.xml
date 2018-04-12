@@ -8,18 +8,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <provider
             android:name=".Data.InventoryProvider"
             android:authorities="com.practice.mahmoudadas.inventoryapp"
             android:exported="false" />
 
-        <activity android:name=".UI.MainActivity">
+        <activity android:name=".UI.ItemsMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.SalesActivity" />
+        <activity android:name=".UI.AddItemActivity" />
     </application>
 
 </manifest>
