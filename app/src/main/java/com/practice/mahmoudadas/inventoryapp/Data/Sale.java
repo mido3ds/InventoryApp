@@ -93,6 +93,13 @@ public class Sale {
                 || type == SalesTable.SALE_TYPE_SELL;
     }
 
+    public static String typeToString(int type) {
+        if (!isValidType(type)) {
+            throw new IllegalArgumentException("invalid type=" + type);
+        }
+        return type == SalesTable.SALE_TYPE_SELL ? "Sell" : "Buy";
+    }
+
     public int getId() {
         return id;
     }

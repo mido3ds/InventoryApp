@@ -26,4 +26,5 @@
         android:dividerHeight="10.0sp"
 
         tools:listitem="@layout/item_stored_item" />
+
 </LinearLayout>

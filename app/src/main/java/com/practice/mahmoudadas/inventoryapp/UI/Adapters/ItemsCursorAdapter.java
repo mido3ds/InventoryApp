@@ -30,13 +30,13 @@ public class ItemsCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
         final Item item = Item.fromCursor(cursor);
 
-        ((ImageView) view.findViewById(R.id.img)).setImageResource(item.getImgResourceId());
-        ((TextView) view.findViewById(R.id.name)).setText(item.getName());
-        ((TextView) view.findViewById(R.id.supplier)).setText("from: " + item.getSupplierName());
-        ((TextView) view.findViewById(R.id.price)).setText(item.getPrice() + " EGP");
-        ((TextView) view.findViewById(R.id.quantity)).setText("quantity: " + item.getQuantity());
+        ((ImageView) view.findViewById(R.id.item_img)).setImageResource(item.getImgResourceId());
+        ((TextView) view.findViewById(R.id.item_name)).setText(item.getName());
+        ((TextView) view.findViewById(R.id.item_supplier)).setText("from: " + item.getSupplierName());
+        ((TextView) view.findViewById(R.id.item_price)).setText(item.getPrice() + " EGP");
+        ((TextView) view.findViewById(R.id.item_quantity)).setText("quantity: " + item.getQuantity());
 
-        (view.findViewById(R.id.sellButton)).setOnClickListener(new View.OnClickListener() {
+        (view.findViewById(R.id.item_sellButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(context)
