@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Inventory App</string>
+
+    <string name="spinner_prompt">Choose a type</string>
+
+    <string-array name="icon_names">
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Juice</item>
+        <item>Chocolate</item>
+        <item>Cheese</item>
+    </string-array>
 </resources>

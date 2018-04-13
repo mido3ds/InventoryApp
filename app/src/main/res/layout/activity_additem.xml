@@ -85,7 +85,7 @@
                 android:id="@+id/add.price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,17 +98,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
 
-                android:text="Icon"
+                android:text="Item Type"
                 android:textSize="18sp" />
 
-            <!--TODO: complete spinner-->
             <Spinner
                 android:id="@+id/add.img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:entries="@array/icon_names"
+                android:prompt="@string/spinner_prompt"
                 android:spinnerMode="dropdown"
-
-                android:visibility="invisible" />
+                android:visibility="visible" />
         </LinearLayout>
 
     </LinearLayout>
